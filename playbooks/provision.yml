@@ -1,0 +1,42 @@
+---
+- hosts: kubernetes-local-prov
+
+  vars_files:
+  - vars.yml
+
+  tasks:
+  - name: Ensure Local provisioner directory exists.
+    file: "path=/local-provisioner/{{ item.name }} state=directory mode=0775"
+    with_items:
+    - "{{ directory }}"
+
+  - name: Purge local tmp directory generated
+    delegate_to: localhost
+    file:
+      state: absent
+      path: "/tmp/generated_yml/"
+    run_once: true
+
+  - name: Ensure Local tmp directory exists.
+    delegate_to: localhost
+    file: "path=/tmp/generated_yml/ state=directory mode=0775"
+    run_once: true
+
+
+  - name: Copy template file
+    delegate_to: localhost
+    template:
+      src: "pv-template.yml"
+      dest: "/tmp/generated_yml/{{ ansible_hostname }}_{{ item.name }}.yml"
+    vars:
+      node: "{{ ansible_hostname }}"
+      name: "{{ item.name }}"
+    with_items:
+    - "{{ directory }}"
+
+
+  - name: Create volumes
+    delegate_to: localhost
+    command: "kubectl create -f /tmp/generated_yml/"
+    run_once: true
+    ignore_errors: yes

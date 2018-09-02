@@ -1,0 +1,10 @@
+[kubernetes-local-prov]
+master1    ansible_host=host1.tld ansible_user=root
+master2    ansible_host=host2.tld ansible_user=root
+master3    ansible_host=host3.tld ansible_user=root
+worker1    ansible_host=host4.tld ansible_user=root
+worker2    ansible_host=host5.tld ansible_user=root
+worker3    ansible_host=host6.tld ansible_user=root
+worker4    ansible_host=host7.tld ansible_user=root
+worker5    ansible_host=host8.tld ansible_user=root
+

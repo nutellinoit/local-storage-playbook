@@ -1,0 +1,16 @@
+---
+# Local storage configuration.
+directory:
+- name: perseus
+- name: andromeda
+- name: cassiopea
+- name: cetus
+- name: cepheus
+- name: pegasus
+- name: auriga
+- name: hercules
+- name: sagitta
+- name: aquila
+- name: lyra
+- name: cygnus
+- name: hydra
